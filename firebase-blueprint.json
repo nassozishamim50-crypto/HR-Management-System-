@@ -1,0 +1,228 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "System user account profile linked to Firebase Auth UID",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "employeeId": { "type": "string" },
+        "fullName": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "organization": { "type": "string" },
+        "department": { "type": "string" },
+        "jobTitle": { "type": "string" },
+        "role": {
+          "type": "string",
+          "enum": [
+            "System Administrator",
+            "HR Administrator",
+            "Executive/Director",
+            "Department Head",
+            "HR Officer",
+            "Employee"
+          ]
+        },
+        "accountStatus": { "type": "string", "enum": ["Active", "Inactive", "Pending"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "lastLoginAt": { "type": "string" }
+      },
+      "required": ["uid", "fullName", "email", "role", "accountStatus"]
+    },
+    "Employee": {
+      "title": "Employee",
+      "description": "Employee master dossier with personal, employment, and emergency contact details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "employeeNumber": { "type": "string" },
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "organization": { "type": "string" },
+        "entity": { "type": "string" },
+        "department": { "type": "string" },
+        "jobTitle": { "type": "string" },
+        "position": { "type": "string" },
+        "employmentType": { "type": "string" },
+        "employmentStatus": { "type": "string" },
+        "dateOfJoining": { "type": "string" },
+        "contractEndDate": { "type": "string" },
+        "supervisor": { "type": "string" },
+        "dutyStation": { "type": "string" },
+        "basicSalary": { "type": "number" },
+        "currency": { "type": "string" },
+        "safeguardingPoliceClearanceNo": { "type": "string" },
+        "safeguardingClearanceExpiry": { "type": "string" },
+        "pseaTrained": { "type": "boolean" },
+        "professionalRegNo": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["firstName", "lastName", "email", "organization", "department", "jobTitle", "employmentStatus"]
+    },
+    "Organization": {
+      "title": "Organization",
+      "description": "Entity definition under Special Children's Trust",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "acronym": { "type": "string" },
+        "code": { "type": "string" },
+        "headquarters": { "type": "string" },
+        "district": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["name", "code"]
+    },
+    "Department": {
+      "title": "Department",
+      "description": "Department unit in Special Children's Trust",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "departmentHead": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string" },
+        "locations": { "type": "string" }
+      },
+      "required": ["name"]
+    },
+    "LeaveRequest": {
+      "title": "LeaveRequest",
+      "description": "Staff leave applications, approvals, and balances",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "employeeId": { "type": "string" },
+        "employeeName": { "type": "string" },
+        "organization": { "type": "string" },
+        "entity": { "type": "string" },
+        "department": { "type": "string" },
+        "leaveType": { "type": "string" },
+        "startDate": { "type": "string" },
+        "endDate": { "type": "string" },
+        "numberOfDays": { "type": "number" },
+        "reason": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pending", "Approved", "Rejected", "Cancelled"] },
+        "approver": { "type": "string" },
+        "approvalDate": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["employeeId", "leaveType", "startDate", "endDate", "status"]
+    },
+    "AttendanceRecord": {
+      "title": "AttendanceRecord",
+      "description": "Daily staff attendance and duty station check-ins",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "employeeId": { "type": "string" },
+        "employeeName": { "type": "string" },
+        "date": { "type": "string" },
+        "status": { "type": "string", "enum": ["Present", "Absent", "Late", "Leave", "Remote", "Work Assignment"] },
+        "checkInTime": { "type": "string" },
+        "checkOutTime": { "type": "string" },
+        "location": { "type": "string" },
+        "workMode": { "type": "string" },
+        "remarks": { "type": "string" }
+      },
+      "required": ["employeeId", "date", "status"]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "Tamper-resistant audit record of security and HR events",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "action": { "type": "string" },
+        "category": { "type": "string" },
+        "actorUid": { "type": "string" },
+        "actorEmail": { "type": "string" },
+        "actorName": { "type": "string" },
+        "actorRole": { "type": "string" },
+        "targetResource": { "type": "string" },
+        "targetId": { "type": "string" },
+        "details": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "ipAddress": { "type": "string" }
+      },
+      "required": ["action", "actorUid", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles linked to Firebase Auth UID"
+    },
+    "/employees/{employeeId}": {
+      "schema": "Employee",
+      "description": "Employee master records"
+    },
+    "/organizations/{orgId}": {
+      "schema": "Organization",
+      "description": "Organizations/entities under Special Children's Trust"
+    },
+    "/departments/{deptId}": {
+      "schema": "Department",
+      "description": "Core departments under Special Children's Trust"
+    },
+    "/positions/{positionId}": {
+      "schema": "Organization",
+      "description": "Staff positions and job titles"
+    },
+    "/leaveRequests/{leaveId}": {
+      "schema": "LeaveRequest",
+      "description": "Staff leave applications and approvals"
+    },
+    "/attendance/{attendanceId}": {
+      "schema": "AttendanceRecord",
+      "description": "Staff daily attendance logs"
+    },
+    "/performanceReviews/{reviewId}": {
+      "schema": "LeaveRequest",
+      "description": "Staff performance appraisals and goals"
+    },
+    "/documents/{documentId}": {
+      "schema": "Employee",
+      "description": "Confidential staff document metadata"
+    },
+    "/training/{trainingId}": {
+      "schema": "Employee",
+      "description": "Staff training and safeguarding certifications"
+    },
+    "/recruitment/{candidateId}": {
+      "schema": "Employee",
+      "description": "Applicant tracking and recruitment candidates"
+    },
+    "/onboarding/{onboardingId}": {
+      "schema": "Employee",
+      "description": "Staff onboarding checklists and compliance verification"
+    },
+    "/offboarding/{offboardingId}": {
+      "schema": "Employee",
+      "description": "Staff exit clearances and offboarding logs"
+    },
+    "/payrollRecords/{payrollId}": {
+      "schema": "Employee",
+      "description": "Authorized statutory payroll and compensation records"
+    },
+    "/notifications/{notificationId}": {
+      "schema": "LeaveRequest",
+      "description": "Targeted staff and management notifications"
+    },
+    "/auditLogs/{auditId}": {
+      "schema": "AuditLog",
+      "description": "Immutable security and data audit trail"
+    },
+    "/systemSettings/{settingId}": {
+      "schema": "Organization",
+      "description": "Organization-wide system configurations and policies"
+    }
+  }
+}

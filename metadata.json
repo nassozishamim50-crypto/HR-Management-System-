@@ -1,0 +1,6 @@
+{
+  "name": "Special Children's Trust HR",
+  "description": "Integrated Management & HR System for Special Children's Trust and its entities: Mukisa Foundation, Mukisa Inclusive Village, Dawn Children's Centre, and Berakhah Medical Center. Empowering People. Supporting Children. Building Inclusive Communities.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
